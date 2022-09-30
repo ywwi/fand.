@@ -36,7 +36,7 @@ FOREIGN KEY(id_curr) REFERENCES curriculum (id_curr)
 
 CREATE TABLE education (
 id_educ INT PRIMARY KEY AUTO_INCREMENT,
-instituiton varchar(255),
+institution varchar(255),
 course varchar(255),
 startf date,
 endf date,

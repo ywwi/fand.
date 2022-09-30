@@ -1,6 +1,7 @@
-<?php include_once($_SERVER['DOCUMENT_ROOT']."/FANTO/db/session.php"); ?>
-<?php include_once($_SERVER['DOCUMENT_ROOT']."/FANTO/db/db.php"); ?>
-<?php 
+<?php
+    include_once($_SERVER['DOCUMENT_ROOT']."/FANTO/db/session.php");
+    include_once($_SERVER['DOCUMENT_ROOT']."/FANTO/db/db.php");
+
     if($_SESSION['loggedIn'] !== true){ exit(header('Location: ./logout.php')); }
 
     $sql = "SELECT * FROM curriculum WHERE id_user = :id_user";
@@ -119,7 +120,7 @@
                                 endif;
                             ?>
                         </div>
-                        <button class="resume-additional-register">Cadastrar habilidade</button>
+                        <a href="./additional-resume-info.php?typeRegister=Habilidade" class="resume-additional-register">Cadastrar habilidade</a>
                     </div>
 
                     <?php
@@ -147,11 +148,11 @@
                                     endif;
                                 ?>
                             </div>
-                            <button class="resume-additional-register">Cadastrar competência</button>
+                            <a href="./additional-resume-info.php?typeRegister=Competência" class="resume-additional-register">Cadastrar competência</a>
                         </div>
 
                     <?php
-                        $educations = "SELECT education.instituiton, education.course, education.startf, education.endf FROM education, curriculum WHERE curriculum.id_user = :id_user";
+                        $educations = "SELECT education.institution, education.course, education.startf, education.endf FROM education, curriculum WHERE curriculum.id_user = :id_user";
 
                         $stmt = $PDO->prepare($educations);
                         $stmt->bindParam(':id_user', $_SESSION['id']);
@@ -169,7 +170,7 @@
                                     <div class="information-block">
                                         <div class="education-institution">
                                             <h4 class="data-h4">Instituição</h4>
-                                            <h2 class="data-h2"><?= $education['instituiton'] ?></h2>
+                                            <h2 class="data-h2"><?= $education['institution'] ?></h2>
                                         </div>
                                         <div class="education-course">
                                             <h4 class="data-h4">Curso</h4>
@@ -189,7 +190,7 @@
                                     endif;
                                 ?>
                             </div>
-                            <button class="resume-additional-register">Cadastrar educação</button>
+                            <a href="./additional-resume-info.php?typeRegister=Educação" class="resume-additional-register">Cadastrar educação</a>
                         </div>
 
                     <?php
@@ -231,28 +232,12 @@
                                     endif;
                                 ?>
                             </div>
-                            <button class="resume-additional-register">Cadastrar experiência profissional</button>
+                            <a href="./additional-resume-info.php?typeRegister=Experiência profissional" class="resume-additional-register">Cadastrar experiência profissional</a>
                         </div>
                 <?php endif; ?>
             </div>
-            <!-- <div class="modal-container">
-                <h2><?php echo "<script>document.write(mainH2Modal)</script>"; ?></h2>
-                <form action="./additional-resume-info.php" method="POST">
-                    <label>
-                        <span>Habilidade</span>
-                        <div class="input">
-                            <input type="ability" name="ability" id="ability" placeholder="Digite sua habilidade! (você deve ter alguma!)">
-                        </div>
-                    </label>
-                    <div>
-                        <button id="cancel-modal" type="button">Cancelar</button>
-                        <input type="submit" value="Adicionar">
-                    </div>
-                </form>
-            </div> -->
         </section>
     </main>
-    <!-- <script src="./modal.js"></script> -->
     <script src="../../scripts/cursor.js"></script>
     <script src="./panel.js"></script>
 </body>
