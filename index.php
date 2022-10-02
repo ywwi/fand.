@@ -22,7 +22,7 @@
     <script type="importmap">
     {
         "imports": {
-        "three": "https://unpkg.com/three@0.144.0/build/three.module.js"
+        "three": "https://unpkg.com/three@0.145.0/build/three.module.js"
         }
     }
     </script>
@@ -42,7 +42,7 @@
     <main>
         <section class="main">
             <?php include($_SERVER['DOCUMENT_ROOT']."/FANTO/included/included.php"); ?>
-            <canvas class="webgl"></canvas>
+            <div id="container"></div>
             <div class="content">
                 <h1><span>CONECTANDO</span> pessoas.</h1>
                 <p>Banco de currículos da ETEC MCM.</p>

@@ -1,97 +1,111 @@
 import * as THREE from 'three'
-import { ParametricGeometry } from 'https://unpkg.com/three@0.144.0/examples/jsm/geometries/ParametricGeometry.js'
 
-const canvas = document.querySelector('canvas.webgl')
-const scene = new THREE.Scene()
-
-const hyperbolic = (u, v, target) =>
+export default class Sketch
 {
-    let alpha = Math.PI * 2 * (u - 0.5)
-    let theta = Math.PI * 2 * (v - 0.5)
-    let t = 5
-    let bottom = 1 + Math.cosh(alpha) * Math.cosh(theta)
+    constructor(options) {
+        this.container = options.domElement
 
-    let x = Math.sinh(alpha) * Math.cos(t * theta) / bottom
-    let y = Math.sinh(alpha) * Math.sin(t * theta) / bottom
-    let z = Math.cosh(alpha) * Math.sinh(theta) / bottom
-    target.set(x, y, z)
+        this.sizes = { width: this.container.offsetWidth, height: this.container.offsetHeight }
+
+        this.scene = new THREE.Scene()
+
+        this.camera = new THREE.PerspectiveCamera(40, this.sizes.width / this.sizes.height, 0.01, 10)
+        this.camera.position.z = 2.5
+        this.scene.add(this.camera)
+
+        this.renderer = new THREE.WebGLRenderer({
+            antialias: true,
+            alpha: true
+        })
+        this.container.appendChild(this.renderer.domElement)
+
+        this.time = Date.now()
+        this.flag = false
+
+        this.resize()
+        this.addObjects()
+        this.render()
+        this.setupResize()
+        this.setupCanvasClick()
+    }
+
+    resize() {
+        this.sizes.width = this.container.offsetWidth
+        this.sizes.height = this.container.offsetHeight
+
+        this.renderer.setSize(this.sizes.width, this.sizes.height)
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+        this.camera.aspect = this.sizes.width / this.sizes.height
+        this.camera.updateProjectionMatrix()
+    }
+
+    setupResize() {
+        window.addEventListener('resize', this.resize.bind(this))
+    }
+
+    addObjects() {
+        this.vertexShader = document.getElementById('vertexShader').textContent
+        this.fragmentShader = document.getElementById('fragmentShader').textContent
+        
+        this.material = new THREE.ShaderMaterial({ 
+            wireframe: true,
+            side: THREE.DoubleSide,
+            uniforms: {
+                u_time: { value: 1. },
+                u_resolution: { value: new THREE.Vector2() },
+                u_clickEvent: { value: 1. }
+            },
+            fragmentShader: this.fragmentShader,
+            vertexShader: this.vertexShader
+        })
+        
+        this.blob = new THREE.Mesh(
+            new THREE.DodecahedronGeometry(0.5, 10),
+            this.material
+        )
+        this.scene.add(this.blob)
+    }
+
+    setupCanvasClick() {
+        this.renderer.domElement.addEventListener('mouseenter', this.canvasHover.bind(this))
+        this.renderer.domElement.addEventListener('mouseleave', this.canvasHover.bind(this))
+        this.renderer.domElement.addEventListener('click', this.canvasClick.bind(this))
+    }
+
+    canvasHover() {
+        cursor.classList.toggle('click')
+    }
+
+    canvasClick() {
+        if (!this.flag) {
+            gsap.to(this.material.uniforms.u_clickEvent, {
+                value: 4,
+                duration: 1
+            })
+            this.flag = !this.flag
+        } else {
+            gsap.to(this.material.uniforms.u_clickEvent, {
+                value: 1,
+                duration: 1
+            })
+            this.flag = !this.flag
+        }
+    }
+
+    render() {
+        this.currentTime = Date.now()
+        this.deltaTime = this.currentTime - this.time
+        this.time = this.currentTime
+
+        this.material.uniforms.u_time.value += this.deltaTime * 0.001
+
+        this.renderer.render(this.scene, this.camera)
+
+        requestAnimationFrame(this.render.bind(this))
+    }
 }
 
-const material = new THREE.MeshBasicMaterial({ color: 0x6a7768, wireframe: true, side: THREE.DoubleSide })
-const hHelicoid = new THREE.Mesh(
-    new ParametricGeometry(hyperbolic, 50, 50),
-    material
-)
-hHelicoid.rotation.x = Math.PI * 0.5
-scene.add(hHelicoid)
-
-const sine = (u, v, target) =>
-{
-    let alpha = Math.PI * 2 * (u - 0.5)
-    let theta = Math.PI * 2 * (v - 0.5)
-    let a = 0.6
-
-    let x = a * Math.sin(alpha)
-    let y = a * Math.cos(theta) * Math.sin(theta)
-    let z = a * Math.sin(alpha + theta)
-
-    target.set(x, y, z)
-}
-
-const sineSurface = new THREE.Mesh(
-    new ParametricGeometry(sine, 60, 60),
-    material
-)
-sineSurface.position.set(0, 4, 0)
-scene.add(sineSurface)
-
-const container = document.getElementById('container')
-const sizes = { width: container.offsetWidth, height: container.offsetHeight }
-const camera = new THREE.PerspectiveCamera(40, sizes.width / sizes.height, 0.1, 15)
-camera.position.z = 2.5
-scene.add(camera)
-
-const renderer = new THREE.WebGLRenderer(
-{
-    canvas,
-    alpha: true,
-    antialias: true
+new Sketch({
+    domElement: document.getElementById('container')
 })
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-renderer.setSize(sizes.width, sizes.height)
-
-window.onresize = () =>
-{
-    sizes.width = container.offsetWidth
-    sizes.height = container.offsetHeight
-    camera.aspect = sizes.width / sizes.height
-    camera.updateProjectionMatrix()
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.setSize(sizes.width, sizes.height)
-}
-
-let time = Date.now()
-const tick = () =>
-{
-    const currentTime = Date.now()
-    const deltaTime = currentTime - time
-    time = currentTime
-
-    hHelicoid.rotation.z += deltaTime * 0.0005
-
-    sineSurface.rotation.x += deltaTime * 0.0005
-    sineSurface.rotation.y += deltaTime * 0.0005
-
-    renderer.render(scene, camera)
-
-    window.requestAnimationFrame(tick)
-}
-tick()
-
-let flag = false
-canvas.onclick = () =>
-{
-    flag == false ? (gsap.to(camera.position, { y: 4, duration: 2 }), flag = true) : (gsap.to(camera.position, { y: 0, duration: 2 }), flag = false)
-}
-canvas.onmouseenter = () => { cursor.classList.toggle('click') }
-canvas.onmouseleave = () => { cursor.classList.toggle('click') }

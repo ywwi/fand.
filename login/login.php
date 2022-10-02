@@ -27,7 +27,7 @@
     <script type="importmap">
     {
         "imports": {
-        "three": "https://unpkg.com/three@0.144.0/build/three.module.js"
+        "three": "https://unpkg.com/three@0.145.0/build/three.module.js"
         }
     }
     </script>
@@ -60,9 +60,7 @@
                         </div>
                     </form>
                 </div>
-                <div id="container">
-                    <canvas class="webgl"></canvas>
-                </div>
+                <div id="container"></div>
             </div>
         </section>
     </main>

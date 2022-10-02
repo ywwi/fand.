@@ -65,7 +65,7 @@ button, a {
     -webkit-appearance: none;
     -moz-appearance: none;
 }
-canvas.webgl {
+canvas {
 	outline: none;
 	border: none;
 	z-index: -4;

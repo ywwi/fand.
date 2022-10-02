@@ -2,16 +2,8 @@
  * cursor
  */
 
-let current =
-{
-    x: 0,
-    y: 0
-}
-let destination =
-{
-    x: 0,
-    y: 0
-}
+let current = { x: 0, y: 0 }
+let destination = { x: 0, y: 0 }
 
 const cursor = document.querySelector('.cursor')
 
@@ -31,14 +23,10 @@ window.onresize = () =>
 {
     mobileTest()
     resultMobileTest = mobileTest()
-    if(resultMobileTest === true)
-    {
+    if(resultMobileTest === true) {
         cursor.style.display = 'none'
-    }
-    else
-    {
-        if(document.body.contains(cursor))
-        {
+    } else {
+        if(document.body.contains(cursor)) {
             cursor.style.display = 'unset'
         }
     }

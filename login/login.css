@@ -7,7 +7,7 @@ body {
     color: black;
 }
 
-canvas.webgl {
+canvas {
     display: block;
     position: unset;
     cursor: pointer;
