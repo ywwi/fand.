@@ -1,5 +1,5 @@
 # fand.
-# Atualizado: 19:44 - 30/09/2022
+# Atualizado: 9:39 - 02/10/2022
 ### Unica função que não está funcionando é o DELETE de competências, habilidades, experiências profissionais e educações.
 ### Atualizei o INSERT de competências, habilidades, etc. Agora estão funcionando.
 ### O arquivo do banco de dados está na pasta "db".
