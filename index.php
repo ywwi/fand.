@@ -17,7 +17,7 @@
     <title>fand. | ETEC MCM</title>
 </head>
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.2/gsap.min.js"></script>
     <script async src="https://unpkg.com/es-module-shims@1.5.18/dist/es-module-shims.js"></script>
     <script type="importmap">
     {

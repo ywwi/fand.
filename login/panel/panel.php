@@ -32,6 +32,8 @@
     <title>Dashboard | fand.</title>
 </head>
 <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.2/gsap.min.js"></script>
+
     <div class="cursor"></div>
     <main>
         <section class="main">
@@ -104,7 +106,7 @@
                     $abilities_rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 ?>
                     <div class="abilities resume-additional">
-                        <div class="information-block">
+                        <div class="information-block information-hover">
                             <?php if(empty($abilities_rows)): ?>
                                 <h2>Hmm... Você não cadastrou nenhuma habilidade ainda...</h2>
                             <?php else:
@@ -120,7 +122,15 @@
                                 endif;
                             ?>
                         </div>
-                        <a href="./additional-resume-info.php?typeRegister=Habilidade" class="resume-additional-register">Cadastrar habilidade</a>
+                        <div class="resume-additional-btns-wrapper">
+                            <a href="./additional-resume-info.php?typeRegister=Habilidade" class="resume-additional-register">Cadastrar habilidade</a>
+                            <button type="button">
+                                <img src="./img/eyeclosed.svg" alt="Eye closed">
+                            </button>
+                            <button type="button" class="hide-eye">
+                                <img src="./img/eyeopened.svg" alt="Eye opened">
+                            </button>
+                        </div>
                     </div>
 
                     <?php
@@ -132,7 +142,7 @@
                         $competences_rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                         <div class="competences resume-additional">
-                            <div class="information-block">
+                            <div class="information-block information-hover">
                                 <?php if(empty($competences_rows)): ?>
                                     <h2>Hmm... Você não cadastrou nenhuma competência ainda...</h2>
                                 <?php else:
@@ -148,7 +158,15 @@
                                     endif;
                                 ?>
                             </div>
-                            <a href="./additional-resume-info.php?typeRegister=Competência" class="resume-additional-register">Cadastrar competência</a>
+                            <div class="resume-additional-btns-wrapper">
+                                <a href="./additional-resume-info.php?typeRegister=Competência" class="resume-additional-register">Cadastrar competência</a>
+                                <button type="button">
+                                    <img src="./img/eyeclosed.svg" alt="Eye closed">
+                                </button>
+                                <button type="button" class="hide-eye">
+                                    <img src="./img/eyeopened.svg" alt="Eye opened">
+                                </button>
+                            </div>
                         </div>
 
                     <?php
@@ -160,7 +178,7 @@
                         $educations_rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                         <div class="educations resume-additional">
-                            <div class="information-wrapper">
+                            <div class="information-wrapper information-hover">
                                 <?php if(empty($educations_rows)): ?>
                                     <h2>Hmm... Você não cadastrou nenhuma educação ainda...</h2>
                                 <?php else:
@@ -190,7 +208,15 @@
                                     endif;
                                 ?>
                             </div>
-                            <a href="./additional-resume-info.php?typeRegister=Educação" class="resume-additional-register">Cadastrar educação</a>
+                            <div class="resume-additional-btns-wrapper">
+                                <a href="./additional-resume-info.php?typeRegister=Educação" class="resume-additional-register">Cadastrar educação</a>
+                                <button type="button">
+                                    <img src="./img/eyeclosed.svg" alt="Eye closed">
+                                </button>
+                                <button type="button" class="hide-eye">
+                                    <img src="./img/eyeopened.svg" alt="Eye opened">
+                                </button>
+                            </div>
                         </div>
 
                     <?php
@@ -202,7 +228,7 @@
                         $experiences_rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                         <div class="professional-experiences resume-additional">
-                            <div class="information-wrapper">
+                            <div class="information-wrapper information-hover">
                                 <?php if(empty($experiences_rows)): ?>
                                     <h2>Hmm... Você não cadastrou nenhuma experiência profissional ainda...</h2>
                                 <?php else:
@@ -232,7 +258,15 @@
                                     endif;
                                 ?>
                             </div>
-                            <a href="./additional-resume-info.php?typeRegister=Experiência profissional" class="resume-additional-register">Cadastrar experiência profissional</a>
+                            <div class="resume-additional-btns-wrapper">
+                                <a href="./additional-resume-info.php?typeRegister=Experiência profissional" class="resume-additional-register">Cadastrar experiência profissional</a>
+                                <button type="button">
+                                    <img src="./img/eyeclosed.svg" alt="Eye closed">
+                                </button>
+                                <button type="button" class="hide-eye">
+                                    <img src="./img/eyeopened.svg" alt="Eye opened">
+                                </button>
+                            </div>
                         </div>
                 <?php endif; ?>
             </div>

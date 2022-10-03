@@ -123,8 +123,7 @@ p {
     font-weight: 400;
     margin-bottom: 1.2rem;
 }
-.content > div:not(:first-child) > div:first-child
-{
+.information-block, .information-wrapper {
     display: flex;
     border-radius: 12px;
     background-color: var(--white);
@@ -201,14 +200,11 @@ p {
 .resume-additional {
     position: relative;
 }
-.resume-additional > div:first-child {
+.information-block, .information-wrapper {
     transition: filter 0.4s;
 }
-.resume-additional:hover > div:first-child {
+.resume-additional:hover .information-hover {
     filter: blur(2px);
-}
-.resume-additional:hover .resume-additional-register {
-    opacity: 1;
 }
 
 /* Educations */
@@ -224,14 +220,18 @@ p {
 .information-block > :last-child {
     padding-left: 2rem;
 }
-.information-block > :only-child {
-    padding-left: 0;
-}
+
 .information-block > :not(:first-child) {
     border-left: 1px solid var(--black);
 }
 .information-block > :not(:first-child, :last-child) {
     padding: 0 2rem 0 2rem;
+}
+
+.competence, .ability, .educations .information-block, .professional-experiences .information-block {
+    padding: 0.8rem 1.6rem;
+    background-color: #e3ffe5;
+    border-radius: 12px;
 }
 
 .user-data > .information-block {
@@ -241,38 +241,53 @@ p {
     display: flex;
 }
 
-/* Coisas como: competências, habilidades, etc. */
+/* Botão para coisas como: competências, habilidades, etc. */
 .resume-additional-register {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    opacity: 0;
-    transition: opacity 0.4s;
-
-    max-width: 18rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.resume-additional-register, .resume-additional-btns-wrapper > button {
+    max-width: 19rem;
     padding: 1.2rem;
     background-color: #171717;
     color: var(--white);
     border-radius: 12px;
-    border: 1px solid var(--primary);
     font-family: 'TWKEverett';
     font-size: 1rem;
 }
+.resume-additional-btns-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.8, 0, 0, 1), top 0.4s cubic-bezier(0.8, 0, 0, 1);
 
-.content > div:not(:first-child) {
-    margin-bottom: 2rem;
+    display: flex;
+    gap: 1.2rem;
+}
+.resume-additional-btns-clicked {
+    top: 100%;
+    opacity: 1;
+}
+
+.resume-additional:hover > .resume-additional-btns-wrapper {
+    opacity: 1;
+}
+.hide-eye {
+    display: none;
+}
+
+.content > div:not(:first-child, :last-child) {
+    margin-bottom: 3rem;
 }
 .data-h4 {
     font-size: 14px;
     margin-bottom: 1rem;
 }
 .data-h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
 }
 
 @media screen and (min-width: 1360px) {
